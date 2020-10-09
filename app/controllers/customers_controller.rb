@@ -53,7 +53,6 @@ class CustomersController < ApplicationController
   # PATCH/PUT /customers/1
   # PATCH/PUT /customers/1.json
   def update
-
     if @customer.update(customer_params)
       flash.notice = "The customer record was updated successfully"
       redirect_to @customer

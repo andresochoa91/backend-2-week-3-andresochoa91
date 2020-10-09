@@ -13,11 +13,22 @@ RSpec.describe "CustomersControllers", type: :request do
 
   describe "get customers_path" do
     it "renders the index view" do
+      # Arrange
       FactoryBot.create_list(:customer, 10)
+
+      # Act
       get customers_path
+
+      # Assert
       expect(response.status).to eq(200)
     end
   end
+
+  # describe "" do
+  #   it "" do
+
+  #   end
+  # end
 
   describe "get customer_path" do
     it "renders the :show template" do
@@ -33,13 +44,16 @@ RSpec.describe "CustomersControllers", type: :request do
 
   describe "get new_customer_path" do
     it "renders the :new template" do
-      
+      get new_customer_path
+      expect(response.status).to eq(200)
     end
   end
 
   describe "get edit_customer_path" do
     it "renders the :edit template" do
-      
+      customer = FactoryBot.create(:customer)
+      get edit_customer_path(id: customer.id)
+      expect(response.status).to eq(200)
     end
   end
 
@@ -64,16 +78,29 @@ RSpec.describe "CustomersControllers", type: :request do
 
   describe "put customer_path with valid data" do
     it "updates an entry and redirects to the show path for the customer" do
+      customer = FactoryBot.create(:customer)
+      customer_attributes = FactoryBot.attributes_for(:customer)
+      put customer_path(id: customer.id, params: { customer: customer_attributes }) 
+      expect(response).to redirect_to customer_path(id: customer.id)
     end
   end
 
   describe "put customer_path with invalid data" do
     it "does not update the customer record or redirect" do
+      customer = FactoryBot.create(:customer)
+      customer_attributes = FactoryBot.attributes_for(:customer)
+      customer_attributes[:phone] = "123asb7895"
+      put customer_path(id: customer.id, params: { customer: customer_attributes }) 
+      expect(customer.phone).to_not eq("123asb7895")
     end
   end
   
   describe "delete a customer record" do
     it "deletes a customer record" do
+      customer = FactoryBot.create(:customer)
+      expect { delete customer_path(id: customer.id)
+      }.to change(Customer, :count)
+      expect(response).to redirect_to customers_path
     end
   end
 end

@@ -1,33 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Customer</h1>
-
-<p>
-  <strong>First name:</strong>
-  <%= @customer.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @customer.last_name %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @customer.phone %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @customer.email %>
-</p>
-
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
-
-
-<p id="notice"><%= notice %></p>
-
 <h1>Orders</h1>
 
 <table>
@@ -40,7 +12,7 @@
   </thead>
 
   <tbody>
-    <% @customer.orders.each do |order| %>
+    <% @orders.each do |order| %>
       <tr>
         <td><%= order.product_name %></td>
         <td><%= order.product_count %></td>
@@ -51,3 +23,7 @@
     <% end %>
   </tbody>
 </table>
+
+<br>
+
+<%= link_to 'New Order', new_order_path %>
